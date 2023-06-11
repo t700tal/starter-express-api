@@ -1,7 +1,7 @@
 {
   "name": "api",
   "version": "2.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -31,9 +31,5 @@
     "morgan": "^1.10.0",
     "node-fetch": "^3.3.1",
     "xss-clean": "^0.1.1"
-  },
-  "engines": {
-    "node": "18.x",
-    "npm": "8.x"
   }
 }
