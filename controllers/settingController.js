@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler"
 
-import Popup from "../models/popup"
-import BlockedDate from "../models/blockedDate"
+import Popup from "../models/popup.js"
+import BlockedDate from "../models/blockedDate.js"
 import mongoose from "mongoose"
 import moment from "moment"
 
@@ -25,7 +25,7 @@ const blockDateTime = asyncHandler(async (req, res) => {
     durationInMinutes,
   })
 
-  reson(blockedDate)
+  res.json(blockedDate)
 })
 
 // @desc    Block an entire day for appointments
@@ -43,7 +43,7 @@ const blockEntireDay = asyncHandler(async (req, res) => {
     durationInMinutes: 1440, // 24 Hours
   })
 
-  reson(blockedDate)
+  res.json(blockedDate)
 })
 
 // @desc    Block a weekday day for appointments
@@ -64,14 +64,14 @@ const blockWeekday = asyncHandler(async (req, res) => {
     isAutomaticWeekly: true,
   })
 
-  reson(blockedDate)
+  res.json(blockedDate)
 })
 
 // @desc    Get all the dates that are blocked
 // @route   GET /setting/blocked-date
 const getBlockedDates = asyncHandler(async (req, res) => {
   const blockDates = await BlockedDate.find({ isDeleted: false })
-  reson(blockDates)
+  res.json(blockDates)
 })
 
 // @desc    Delete a date that is blocked
@@ -107,7 +107,7 @@ const createPopup = asyncHandler(async (req, res) => {
     await oldPopup.save()
   }
   const popup = await Popup.create({ text })
-  res.status(201)on(popup)
+  res.status(201).json(popup)
 })
 
 // @desc    Get the latest popup
@@ -116,7 +116,7 @@ const getLastPopup = asyncHandler(async (req, res) => {
   const popup = await Popup.findOne({ isDeleted: false }).sort({
     createdAt: -1,
   })
-  reson(popup)
+  res.json(popup)
 })
 
 // @desc    Delete a popup

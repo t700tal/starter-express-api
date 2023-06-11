@@ -1,11 +1,11 @@
 import asyncHandler from "express-async-handler"
-import Appointment from "../models/Appointment"
-import Patient from "../models/Patient" 
+import Appointment from "../models/Appointment.js"
+import Patient from "../models/patient.js" 
 import moment from "moment"
 import {
   getAvailableTimeSlotsByDate,
   isAvailableTimeSlot,
-} from "../utils/appointments"
+} from "../utils/appointments.js"
 import mongoose from "mongoose"
 
 // @desc    Set new appointment by date
@@ -55,7 +55,7 @@ const createAppointment = asyncHandler(async (req, res) => {
     }
   }
 
-  reson(newAppointment)
+  res.json(newAppointment)
 })
 
 // @desc    Get available time slots to set appointments
@@ -80,7 +80,7 @@ const getAvailableTimeSlots = asyncHandler(async (req, res) => {
     date,
     durationInMinutes
   )
-  reson(availableSlots)
+  res.json(availableSlots)
 })
 
 // @desc    Get all appointments
@@ -90,7 +90,7 @@ const getAllApointments = asyncHandler(async (req, res) => {
     isDeleted: false,
     isDone: false,
   })
-  reson(appointments)
+  res.json(appointments)
 })
 
 // @desc    Get all appointments for existing patient
@@ -101,7 +101,7 @@ const getPatientAppointments = asyncHandler(async (req, res) => {
     isDeleted: false,
     isDone: false,
   })
-  reson(appointments)
+  res.json(appointments)
 })
 
 // @desc    Mark an appointment as deleted by id

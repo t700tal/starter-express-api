@@ -5,7 +5,7 @@ import {
   fullNameValidate,
   usernameValidate,
   passwordValidate,
-} from "../utils/validators"
+} from "../utils/validators.js"
 
 const adminSchema = mongoose.Schema(
   {

@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-import { popupValidate } from "../utils/validators"
+import { popupValidate } from "../utils/validators.js"
 
 const popupSchema = mongoose.Schema(
   {

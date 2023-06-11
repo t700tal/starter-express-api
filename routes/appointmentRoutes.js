@@ -6,8 +6,8 @@ import {
   getAllApointments,
   getPatientAppointments,
   deleteAppointmentById,
-} from "../controllers/appointmentController"
-import { protect, patient, admin } from "../middleware/authMiddleware"
+} from "../controllers/appointmentController.js"
+import { protect, patient, admin } from "../middleware/authMiddleware.js"
 
 const router = express.Router()
 

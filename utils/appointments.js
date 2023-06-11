@@ -1,7 +1,7 @@
 import moment from "moment"
 
-import Appointment from "../models/Appointment"
-import BlockedDate from "../models/blockedDate"
+import Appointment from "../models/Appointment.js"
+import BlockedDate from "../models/blockedDate.js"
 
 const getAvailableAppointmentsByDate = async (date) => {
   const currentDateTime = moment()

@@ -8,13 +8,13 @@ import hpp from "hpp"
 import mongoSanitize from "express-mongo-sanitize"
 import moment from "moment-timezone"
 
-import connectDB from "./config/db"
-import { errorHandler, notFound } from "./middleware/errorMiddleware"
-import { rateLimitter } from "./middleware/rateLimitMiddleware"
-import adminRouter from "./routes/adminRoutes"
-import patientRouter from "./routes/patientRoutes"
-import appointmentRouter from "./routes/appointmentRoutes"
-import sesttingRouter from "./routes/settingRoutes"
+import connectDB from "./config/db.js"
+import { errorHandler, notFound } from "./middleware/errorMiddleware.js"
+import { rateLimitter } from "./middleware/rateLimitMiddleware.js"
+import adminRouter from "./routes/adminRoutes.js"
+import patientRouter from "./routes/patientRoutes.js"
+import appointmentRouter from "./routes/appointmentRoutes.js"
+import sesttingRouter from "./routes/settingRoutes.js"
 
 dotenv.config()
 
@@ -31,7 +31,7 @@ if (process.env.NODE_ENV.toLowerCase() === "development") {
   app.use(rateLimitter)
 }
 app.use(cors({ origin: "*" }))
-app.use(expresson())
+app.use(express.json())
 app.use(hpp())
 app.use(helmet())
 app.use(xss())
