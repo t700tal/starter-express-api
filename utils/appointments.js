@@ -1,6 +1,6 @@
 import moment from "moment"
 
-import Appointment from "../models/Appointment.js"
+import Appointment from "../models/appointment.js"
 import BlockedDate from "../models/blockedDate.js"
 
 const getAvailableAppointmentsByDate = async (date) => {

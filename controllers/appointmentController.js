@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler"
-import Appointment from "../models/Appointment.js"
+import Appointment from "../models/appointment.js"
 import Patient from "../models/patient.js" 
 import moment from "moment"
 import {
