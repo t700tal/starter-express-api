@@ -62,6 +62,8 @@ app.listen(
 // check that all get data are sorted by date.
 // organize auth middleware
 // node jobs, and firebase.
+// blockk not working days
+// dont allow to set appoiintment after 30 days
 // To sosrt all things that sent to frontend
 //change here and in frontend patient -> patientId
 // rate limit in sms sending and block user if too much attempts
