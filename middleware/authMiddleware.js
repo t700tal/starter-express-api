@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken"
 import asyncHandler from "express-async-handler"
 
-import Admin from "../models/admin.js"
-import Patient from "../models/Patient.js"
+import Admin from "../models/admin"
+import Patient from "../models/Patient"
 
 const protect = asyncHandler(async (req, res, next) => {
   try {

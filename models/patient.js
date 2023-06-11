@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-import { fullNameValidate, phoneValidate } from "../utils/validators.js"
+import { fullNameValidate, phoneValidate } from "../utils/validators"
 
 const patientSchema = mongoose.Schema(
   {

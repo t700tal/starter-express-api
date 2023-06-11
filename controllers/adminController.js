@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler"
 
-import Admin from "../models/admin.js"
-import { createJWT } from "../utils/jwt.js"
+import Admin from "../models/admin"
+import { createJWT } from "../utils/jwt"
 
 // @desc    Login CRM admin & get token
 // @route   POST /admin/login
@@ -15,7 +15,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
       res.status(403)
       throw new Error("יש לחכות לאישור של מנהל")
     } else {
-      res.json({ token: createJWT({ adminId: admin._id }) })
+      reson({ token: createJWT({ adminId: admin._id }) })
     }
   } else {
     res.status(401)

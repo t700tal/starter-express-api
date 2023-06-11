@@ -9,8 +9,8 @@ import {
   deleteBlockedDate,
   blockEntireDay,
   blockWeekday,
-} from "../controllers/settingController.js"
-import { protect, admin } from "../middleware/authMiddleware.js"
+} from "../controllers/settingController"
+import { protect, admin } from "../middleware/authMiddleware"
 
 const router = express.Router()
 

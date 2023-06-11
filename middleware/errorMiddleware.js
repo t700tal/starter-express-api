@@ -14,14 +14,14 @@ const errorHandler = (err, req, res, next) => {
     const validationErrorsValues = Object.values(err.errors)
     const errorMessages = validationErrorsValues.map((error) => error.message)
 
-    res.status(422).json({
+    res.status(422)on({
       message: errorMessages.length > 1 ? errorMessages.join(", ") : errorMessages[0],
       stack: errorStack,
     })
   } else {
     const statusCode = res.statusCode === 200 ? 500 : res.statusCode
     res.status(statusCode)
-    res.json({
+    reson({
       message: err.message,
       stack: errorStack,
     })

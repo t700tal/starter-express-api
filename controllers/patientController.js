@@ -1,12 +1,12 @@
 import asyncHandler from "express-async-handler"
 import fetch from "node-fetch"
 
-import Patient from "../models/Patient.js"
-import { createJWT } from "../utils/jwt.js"
+import Patient from "../models/Patient"
+import { createJWT } from "../utils/jwt"
 import mongoose from "mongoose"
 import moment from "moment"
-import { phoneValidate } from "../utils/validators.js"
-import SmsCode from "../models/smsCode.js"
+import { phoneValidate } from "../utils/validators"
+import SmsCode from "../models/smsCode"
 
 // @desc    Login patient & get token
 // @route   POST /patient/send-code
@@ -31,14 +31,14 @@ const sendSMSCode = asyncHandler(async (req, res) => {
         msg: `הקוד שלך לאפליקציה של אוראל: ${code}`,
       }),
     })
-    if (!response.ok || (await response.json()) !== 1) {
+    if (!response.ok || (await responseon()) !== 1) {
       throw new Error("שליחת הודעה נכשלה")
     }
     const patient = await Patient.findOne({ phone: recipient })
     if (!patient) {
-      res.status(201).json({ isRegistered: false })
+      res.status(201)on({ isRegistered: false })
     } else {
-      res.status(201).json({ isRegistered: true })
+      res.status(201)on({ isRegistered: true })
     }
   } else {
     res.status(422)
@@ -64,7 +64,7 @@ const loginPatient = asyncHandler(async (req, res) => {
     throw new Error("קוד שגוי")
   } else {
     if (patient) {
-      res.json({
+      reson({
         token: createJWT({
           patientId: patient._id,
         }),
@@ -77,7 +77,7 @@ const loginPatient = asyncHandler(async (req, res) => {
         fullName,
         phone,
       })
-      res.status(201).json({
+      res.status(201)on({
         token: createJWT({ patientId: newPatient._id }),
         canMultipleAppointments: patient.canMultipleAppointments,
         isPermanentBlocked: patient.isPermanentBlocked,
@@ -89,7 +89,7 @@ const loginPatient = asyncHandler(async (req, res) => {
 // @desc    Get patient profile
 // @route   POST /patient/profile
 const getPatientProfile = asyncHandler(async (req, res) => {
-  res.json(req.patient)
+  reson(req.patient)
 })
 
 // @desc    Update patient's profile
@@ -105,7 +105,7 @@ const updatePatient = asyncHandler(async (req, res) => {
 // @route   GET /patient/all
 const getAllPatients = asyncHandler(async (req, res) => {
   const patients = await Patient.find({})
-  res.json(patients)
+  reson(patients)
 })
 
 // @desc    block permanent patient

@@ -1,7 +1,7 @@
 import express from "express"
 
-import { loginAdmin, registerAdmin, updateAdmin } from "../controllers/adminController.js"
-import { protect, admin } from "../middleware/authMiddleware.js"
+import { loginAdmin, registerAdmin, updateAdmin } from "../controllers/adminController"
+import { protect, admin } from "../middleware/authMiddleware"
 
 const router = express.Router()
 

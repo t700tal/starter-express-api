@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import bcrypt from "bcryptjs"
 
-import { phoneValidate } from "../utils/validators.js"
+import { phoneValidate } from "../utils/validators"
 
 const smsCodeSchema = mongoose.Schema(
   {

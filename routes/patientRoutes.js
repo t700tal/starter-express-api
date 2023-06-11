@@ -9,8 +9,8 @@ import {
   blockTemporaryPatient,
   multipleAppointmentPermission,
   getPatientProfile,
-} from "../controllers/patientController.js"
-import { protect, patient, admin } from "../middleware/authMiddleware.js"
+} from "../controllers/patientController"
+import { protect, patient, admin } from "../middleware/authMiddleware"
 
 const router = express.Router()
 
