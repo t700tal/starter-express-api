@@ -126,8 +126,8 @@ const getAvailableTimeSlotsByDate = async (date, durationInMinutes) => {
           ) ||
             currentTimeSlot.clone().isAfter(
               moment(currentTimeSlot.clone()).set({
-                hour: 15,
-                minute: 0,
+                hour: 14,
+                minute: 45,
                 second: 0,
               })
             ))
