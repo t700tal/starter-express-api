@@ -61,12 +61,21 @@ const getAvailableTimeSlotsByDate = async (date, durationInMinutes) => {
       "minutes"
     )
   } else {
-    startWorkingHour = date.clone().set({
-      hour: process.env.TIME_OPEN,
-      minute: 0,
-      second: 0,
-      millisecond: 0,
-    })
+    if (date.clone().day() === 5) {
+      startWorkingHour = date.clone().set({
+        hour: 9,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+      })
+    } else {
+      startWorkingHour = date.clone().set({
+        hour: process.env.TIME_OPEN,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+      })
+    }
   }
   const endWorkingHour = date.clone().set({
     hour: process.env.TIME_CLOSE,
@@ -105,9 +114,31 @@ const getAvailableTimeSlotsByDate = async (date, durationInMinutes) => {
       )
     })
     if (!isBooked && endTimeSlot.isBefore(endWorkingHour)) {
-      availableTimeSlots.push({
-        dateTime: currentTimeSlot.clone(),
-      })
+      if (
+        !(
+          currentTimeSlot.clone().day() === 5 &&
+          (currentTimeSlot.clone().isBefore(
+            moment(currentTimeSlot.clone()).set({
+              hour: 9,
+              minute: 0,
+              second: 0,
+            })
+          ) ||
+            currentTimeSlot.clone().isAfter(
+              moment(currentTimeSlot.clone()).set({
+                hour: 15,
+                minute: 0,
+                second: 0,
+              })
+            ))
+        )
+      ) {
+        if(currentTimeSlot.clone().day() !== 6) {
+          availableTimeSlots.push({
+            dateTime: currentTimeSlot.clone(),
+          })
+        }
+      }
     }
 
     currentTimeSlot.add(process.env.TIME_STEP_IN_MINUTES, "minute")
