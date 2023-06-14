@@ -19,6 +19,6 @@ export const passwordValidate = {
 }
 
 export const popupValidate = {
-  validator: (v) => /^.{6,}$/.test(v),
+  validator: (v) => true,
   message: "יש להזין תוכן תקין למודעה",
 }
