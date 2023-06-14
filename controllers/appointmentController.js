@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler"
 import Appointment from "../models/appointment.js"
-import Patient from "../models/patient.js" 
+import Patient from "../models/patient.js"
 import moment from "moment"
 import {
   getAvailableTimeSlotsByDate,
@@ -86,10 +86,7 @@ const getAvailableTimeSlots = asyncHandler(async (req, res) => {
 // @desc    Get all appointments
 // @route   GET /appointment/all
 const getAllApointments = asyncHandler(async (req, res) => {
-  const appointments = await Appointment.find({
-    isDeleted: false,
-    isDone: false,
-  })
+  const appointments = await Appointment.find({})
   res.json(appointments)
 })
 

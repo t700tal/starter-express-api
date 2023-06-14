@@ -7,6 +7,7 @@ import mongoose from "mongoose"
 import moment from "moment"
 import { phoneValidate } from "../utils/validators.js"
 import SmsCode from "../models/smsCode.js"
+import { updateDoneAppointments, updateDoneAppointmentsForPatient } from "../utils/appointments.js"
 
 // @desc    Login patient & get token
 // @route   POST /patient/send-code
@@ -96,6 +97,7 @@ const loginPatient = asyncHandler(async (req, res) => {
 // @desc    Get patient profile
 // @route   POST /patient/profile
 const getPatientProfile = asyncHandler(async (req, res) => {
+  await updateDoneAppointmentsForPatient(req.patient._id)
   res.json(req.patient)
 })
 
@@ -111,6 +113,7 @@ const updatePatient = asyncHandler(async (req, res) => {
 // @desc    Get all patients
 // @route   GET /patient/all
 const getAllPatients = asyncHandler(async (req, res) => {
+  await updateDoneAppointments()
   const patients = await Patient.find({})
   res.json(patients)
 })

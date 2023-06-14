@@ -133,7 +133,7 @@ const getAvailableTimeSlotsByDate = async (date, durationInMinutes) => {
             ))
         )
       ) {
-        if(currentTimeSlot.clone().day() !== 6) {
+        if (currentTimeSlot.clone().day() !== 6) {
           availableTimeSlots.push({
             dateTime: currentTimeSlot.clone(),
           })
@@ -158,4 +158,46 @@ const isAvailableTimeSlot = async (timeSlot, durationInMinutes) => {
   )
 }
 
-export { getAvailableTimeSlotsByDate, isAvailableTimeSlot }
+const updateDoneAppointments = async () => {
+  await Appointment.updateMany(
+    {
+      dateTime: {
+        $lt: moment(),
+      },
+      isDone: false,
+      isDeleted: false,
+    },
+    {
+      isDone: true,
+    }
+  )
+}
+
+const updateDoneAppointmentsForPatient = async (patientId) => {
+  const appointments = await Appointment.find({
+    patient: patientId,
+  })
+  const appointmentsIds = appointments.map((appointment) => appointment._id)
+  await Appointment.updateMany(
+    {
+      _id: {
+        $in: appointmentsIds,
+      },
+      dateTime: {
+        $lt: moment(),
+      },
+      isDone: false,
+      isDeleted: false,
+    },
+    {
+      isDone: true,
+    }
+  )
+}
+
+export {
+  getAvailableTimeSlotsByDate,
+  isAvailableTimeSlot,
+  updateDoneAppointments,
+  updateDoneAppointmentsForPatient,
+}
