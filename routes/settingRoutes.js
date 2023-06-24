@@ -9,6 +9,7 @@ import {
   deleteBlockedDate,
   blockEntireDay,
   blockWeekday,
+  sendSMSToAll,
 } from "../controllers/settingController.js"
 import { protect, admin } from "../middleware/authMiddleware.js"
 
@@ -23,6 +24,7 @@ router.route("/blocked-date").get(protect, getBlockedDates)
 router.route("/block-datetime").post(protect, admin, blockDateTime)
 router.route("/block-day").post(protect, admin, blockEntireDay)
 router.route("/block-weekday").post(protect, admin, blockWeekday)
+router.route("/sms").post(protect, admin, sendSMSToAll)
 router
   .route("/blocked-date/:blockedDateId")
   .delete(protect, admin, deleteBlockedDate)

@@ -81,3 +81,31 @@ app.listen(
 // app :------------------------
 // remove auto splash screen in apple
 // web and app icon
+// #TODO: blockdays, working times, waitings.
+// Validators for all columns in all models (even moments).
+// check that findByIdAndUpdate is good for me and change all to: findByIdAndUpdate.
+// be consistent on things like the end points name /create, /blockedDate
+// check where can i change const to let when take req.params/req.body/req.query
+// think what to do with the duplpications in blocked dates as admin.
+// start and  end time are 3 hours before .
+// check that all get data are sorted by date.
+// organize auth middleware
+// node jobs, and firebase.
+// To sosrt all things that sent to frontend
+//change here and in frontend patient -> patientId
+// rate limit in sms sending and block user if too much attempts
+// in baakend: blocked patients canat set appointments.
+// remove comments from sendSMSCode() and logs
+// loading when set appointment so u blocok the button
+// validate time diff 
+// if patient set new appointment it will be 15 mins anaayway so why i validate it with its given duration.
+// check if appointment or any deletable obj is already deleted
+// handle appointment deletion and dont allow to delete 30 mins before
+// show deleted appointments
+// auto delete schedule everyting.
+// description screenshots and app icon smaller
+// donit allow to spam the sms code.
+// app :------------------------
+// remove auto splash screen in apple
+// web and app icon
+// POPUP ROUTE DONT NEED TO BE PROTECTED

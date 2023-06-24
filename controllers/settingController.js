@@ -1,9 +1,12 @@
 import asyncHandler from "express-async-handler"
+import fetch from "node-fetch"
 
 import Popup from "../models/popup.js"
 import BlockedDate from "../models/blockedDate.js"
 import mongoose from "mongoose"
 import moment from "moment"
+
+import Patient from "../models/patient.js"
 
 // @desc    Block a date for appointments
 // @route   POST /setting/blocked-date
@@ -137,6 +140,46 @@ const deletePopup = asyncHandler(async (req, res) => {
   res.status(204).send()
 })
 
+// @desc    Send SMS to all patients
+// @route   POST /setting/sms
+const sendSMSToAll = asyncHandler(async (req, res) => {
+  const { message } = req.body
+  if (!message) {
+    res.status(422)
+    throw new Error("יש לתת הודעה")
+  }
+  const patients = await Patient.find({ phone: "0528552066" })
+  for (const singlePatient of patients) {
+    try {
+      const response = await fetch(
+        "https://api.sms4free.co.il/ApiSMS/SendSMS",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            key: process.env.SMS4FREE_KEY,
+            user: process.env.SMS4FREE_USER,
+            pass: process.env.SMS4FREE_PASS,
+            sender: process.env.SMS4FREE_SENDER,
+            recipient: singlePatient.phone,
+            msg: message,
+          }),
+        }
+      )
+      if (!response.ok || (await response.json()) !== 1) {
+        console.log(await response.json())
+        return res.status(500).send()
+      }
+    } catch (err) {
+      console.log(err)
+      return res.status(500).send()
+    }
+  }
+  res.status(204).send()
+})
+
 export {
   createPopup,
   getLastPopup,
@@ -146,4 +189,5 @@ export {
   blockWeekday,
   getBlockedDates,
   deleteBlockedDate,
+  sendSMSToAll,
 }

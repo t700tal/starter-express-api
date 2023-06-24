@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler"
 import Appointment from "../models/appointment.js"
 import Patient from "../models/patient.js"
 import moment from "moment"
+import fetch from "node-fetch"
 import {
   getAvailableTimeSlotsByDate,
   isAvailableTimeSlot,
@@ -45,6 +46,7 @@ const createAppointment = asyncHandler(async (req, res) => {
         durationInMinutes,
         patient: patientId,
       })
+      await sendSmsToPatient(patient, dateTime)
     } else {
       newAppointment = await Appointment.create({
         dateTime,
@@ -52,6 +54,7 @@ const createAppointment = asyncHandler(async (req, res) => {
         durationInMinutes: process.env.DEFAULT_APPOINTMENT_DURATION,
         patient: req.patient._id,
       })
+      await sendSmsToPatient(req.patient, dateTime)
     }
   }
 
@@ -86,7 +89,7 @@ const getAvailableTimeSlots = asyncHandler(async (req, res) => {
 // @desc    Get all appointments
 // @route   GET /appointment/all
 const getAllApointments = asyncHandler(async (req, res) => {
-  const appointments = await Appointment.find({})
+  const appointments = await Appointment.find({ isDeleted: false })
   res.json(appointments)
 })
 
@@ -125,6 +128,25 @@ const deleteAppointmentById = asyncHandler(async (req, res) => {
   await appointment.save()
   res.status(204).send()
 })
+
+const sendSmsToPatient = async (patient, date) => {
+  try {
+    await fetch("https://api.sms4free.co.il/ApiSMS/SendSMS", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        key: process.env.SMS4FREE_KEY,
+        user: process.env.SMS4FREE_USER,
+        pass: process.env.SMS4FREE_PASS,
+        sender: process.env.SMS4FREE_SENDER,
+        recipient: patient.phone,
+        msg: "נקבע לך תור למספרה ב - " + date.format("DD/MM/YY HH:mm"),
+      }),
+    })
+  } catch (err) {}
+}
 
 export {
   createAppointment,
