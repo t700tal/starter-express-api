@@ -148,7 +148,7 @@ const sendSMSToAll = asyncHandler(async (req, res) => {
     res.status(422)
     throw new Error("יש לתת הודעה")
   }
-  const patients = await Patient.find({ phone: "0528552066" })
+  const patients = await Patient.find({ })
   for (const singlePatient of patients) {
     try {
       const response = await fetch(
